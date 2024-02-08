@@ -1,4 +1,4 @@
-"""Sandwich Maker - Version 6"""
+"""Sandwich Maker - Version 9"""
 # Imports...
 import easygui
 
@@ -50,30 +50,34 @@ def main_menu():
                                             "Finish", "Quit"))
         if choice == "Select Bread":
             selected_bread = select_bread()
+            total_price -= round(get_item_price("Bread", bread), 2)
             bread = selected_bread
-            total_price += get_item_price("Bread", selected_bread)
+            total_price += round(get_item_price("Bread", selected_bread), 2)
         elif choice == "Select Meat":
             selected_meats = select_meat()
+            total_price -= sum([get_item_price("Meat", meat) for meat in meats])
             meats = selected_meats
-            total_price += sum([get_item_price("Meat", meat) for meat in
-                                selected_meats])
+            total_price += sum([get_item_price("Meat", meat) for meat in selected_meats])
         elif choice == "Select Garnishes":
             selected_garnishes = select_garnish()
+            total_price -= sum([get_item_price("Garnish", garnish) for garnish in garnishes])
             garnishes = selected_garnishes
-            total_price += sum([get_item_price("Garnish", garnish) for
-                                garnish in selected_garnishes])
+            total_price += sum([get_item_price("Garnish", garnish) for garnish in selected_garnishes])
         elif choice == "Prices":
             prices()
         elif choice == "Finish":
-            final_order_summary = (
-                f"Your final order costs ${total_price:.2f}, and "
-                f"consists of:\n\n"
-                f"Bread - {bread}\n"
-                f"Meat - {', '.join(meats)}\n"
-                f"Garnishes - {', '.join(garnishes)}"
-            )
-            easygui.msgbox(final_order_summary)
-            quit()
+            if not (bread and meats and garnishes):
+                easygui.msgbox("Please select at least one bread, one meat, and one garnish before finishing.", "Error")
+            else:
+                final_order_summary = (
+                    f"Your final order costs ${total_price:.2f}, and "
+                    f"consists of:\n\n"
+                    f"Bread - {bread}\n"
+                    f"Meat - {', '.join(meats)}\n"
+                    f"Garnishes - {', '.join(garnishes)}"
+                )
+                easygui.msgbox(final_order_summary)
+                quit()
         else:
             confirm_quit()
 
@@ -171,6 +175,7 @@ def get_item_price(category, item):
     for menu_item in MENU.get(category, []):
         if item in menu_item:
             return menu_item[item]
+    return 0.0  # Return 0 if the item is not found (for error handling)
 
 
 def confirm_quit():

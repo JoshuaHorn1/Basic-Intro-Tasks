@@ -1,4 +1,4 @@
-"""Sandwich Maker - Version 6"""
+"""Sandwich Maker - Version 7"""
 # Imports...
 import easygui
 
@@ -48,6 +48,7 @@ def main_menu():
                                    choices=("Select Bread", "Select Meat",
                                             "Select Garnishes", "Prices",
                                             "Finish", "Quit"))
+
         if choice == "Select Bread":
             selected_bread = select_bread()
             bread = selected_bread
@@ -55,25 +56,26 @@ def main_menu():
         elif choice == "Select Meat":
             selected_meats = select_meat()
             meats = selected_meats
-            total_price += sum([get_item_price("Meat", meat) for meat in
-                                selected_meats])
+            total_price += sum([get_item_price("Meat", meat) for meat in selected_meats])
         elif choice == "Select Garnishes":
             selected_garnishes = select_garnish()
             garnishes = selected_garnishes
-            total_price += sum([get_item_price("Garnish", garnish) for
-                                garnish in selected_garnishes])
+            total_price += sum([get_item_price("Garnish", garnish) for garnish in selected_garnishes])
         elif choice == "Prices":
             prices()
         elif choice == "Finish":
-            final_order_summary = (
-                f"Your final order costs ${total_price:.2f}, and "
-                f"consists of:\n\n"
-                f"Bread - {bread}\n"
-                f"Meat - {', '.join(meats)}\n"
-                f"Garnishes - {', '.join(garnishes)}"
-            )
-            easygui.msgbox(final_order_summary)
-            quit()
+            if not (bread and meats and garnishes):
+                easygui.msgbox("Please select at least one bread, one meat, and one garnish before finishing.", "Error")
+            else:
+                final_order_summary = (
+                    f"Your final order costs ${total_price:.2f}, and "
+                    f"consists of:\n\n"
+                    f"Bread - {bread}\n"
+                    f"Meat - {', '.join(meats)}\n"
+                    f"Garnishes - {', '.join(garnishes)}"
+                )
+                easygui.msgbox(final_order_summary)
+                quit()
         else:
             confirm_quit()
 
