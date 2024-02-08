@@ -2,6 +2,7 @@
 # Imports...
 import easygui
 
+
 # Lists...
 MENU = {
     "Bread": [
@@ -24,36 +25,54 @@ MENU = {
     ]
 }
 
+
 # Functions...
 
 
 def main_menu():
     choice = ""
     bread = ""
-    meats = ""
-    garnishes = ""
+    meats = []
+    garnishes = []
+    total_price = 0.0
     while choice != "xxx":
-        choice = easygui.buttonbox("Your order currently costs $_, and "
-                                   "consists of:\n\n"
-                                   f"Bread - {bread}\n"
-                                   f"Meat - {meats}\n"
-                                   f"Garnishes - {garnishes}\n\n"
-                                   f"What would you like to select/change?",
-                                   "MAIN MENU",
+        order_summary = (
+            f"Your order currently costs ${total_price:.2f}, and "
+            f"consists of:\n\n"
+            f"Bread - {bread}\n"
+            f"Meat - {', '.join(meats)}\n"
+            f"Garnishes - {', '.join(garnishes)}\n\n"
+            f"What would you like to select/change?"
+        )
+        choice = easygui.buttonbox(order_summary, "MAIN MENU",
                                    choices=("Select Bread", "Select Meat",
-                                            "Select Garnishes", "Finish",
-                                            "Quit"))
+                                            "Select Garnishes", "Prices",
+                                            "Finish", "Quit"))
         if choice == "Select Bread":
-            bread = select_bread()
+            selected_bread = select_bread()
+            bread = selected_bread
+            total_price += get_item_price("Bread", selected_bread)
         elif choice == "Select Meat":
-            meats = select_meat()
+            selected_meats = select_meat()
+            meats = selected_meats
+            total_price += sum([get_item_price("Meat", meat) for meat in
+                                selected_meats])
         elif choice == "Select Garnishes":
-            garnishes = select_garnish()
+            selected_garnishes = select_garnish()
+            garnishes = selected_garnishes
+            total_price += sum([get_item_price("Garnish", garnish) for
+                                garnish in selected_garnishes])
+        elif choice == "Prices":
+            prices()
         elif choice == "Finish":
-            easygui.msgbox("Your final order costs $_, and consists of:\n\n"
-                           f"Bread - {bread}\n"
-                           f"Meat - {meats}\n"
-                           f"Garnishes - {garnishes}")
+            final_order_summary = (
+                f"Your final order costs ${total_price:.2f}, and "
+                f"consists of:\n\n"
+                f"Bread - {bread}\n"
+                f"Meat - {', '.join(meats)}\n"
+                f"Garnishes - {', '.join(garnishes)}"
+            )
+            easygui.msgbox(final_order_summary)
             quit()
         else:
             confirm_quit()
@@ -142,21 +161,28 @@ def prices():
 
 def display_prices(category):
     prices_list = MENU.get(category, [])
-    formatted_prices = "\n".join([f"{item}: ${price}" for item_dict in prices_list for item, price in item_dict.items()])
+    formatted_prices = "\n".join([f"{item}: ${price:.2f}" for item_dict in
+                                  prices_list for item, price in
+                                  item_dict.items()])
     easygui.msgbox(formatted_prices, f"{category} Prices")
+
+
+def get_item_price(category, item):
+    for menu_item in MENU.get(category, []):
+        if item in menu_item:
+            return menu_item[item]
 
 
 def confirm_quit():
     confirm = easygui.buttonbox("Please confirm that you would like to quit "
                                 "the program.", "Confirm Quit",
-                                choices=("Yes - Quit", "No - Return"))
+                                choices=("Yes - Quit", "No - Main Menu"))
     if confirm == "Yes - Quit":
         exit()
     else:
         main_menu()
 
+
 # Main...
-
-
 easygui.msgbox("Hello! Welcome to the online Sandwich Store!", "MAIN MENU")
 main_menu()
