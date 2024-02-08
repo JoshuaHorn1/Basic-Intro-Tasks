@@ -34,34 +34,69 @@ def main_menu():
 
 
 def select_bread():
-    while choice == "Quit":
-        choice = easygui.buttonbox("Please select a bread option:",
-                                   "Choose Your Bread",
-                                   choices=("Wholemeal", "White",
-                                            "Cheesy White",
-                                            "Gluten Free", "Quit"))
-        if choice == "Quit":
-            confirm_quit()
-            choice = easygui.buttonbox("Please select a bread option:",
-                                       "Choose Your Bread",
-                                       choices=("Wholemeal", "White",
-                                                "Cheesy White", "Gluten Free",
-                                                "Quit"))
+    choice = easygui.buttonbox("Please select a bread option:",
+                               "Choose Your Bread",
+                               choices=("Wholemeal", "White",
+                                        "Cheesy White",
+                                        "Gluten Free", "Quit"))
+    if choice == "Quit":
+        confirm_quit()
     return choice
 
 
 def select_meat():
     num_meat = easygui.buttonbox("How many meats do you want in your "
                                  "sandwich?", "Num Meats",
-                                 choices=("1", "2", "3", "4", "Quit"))
+                                 choices=(1, 2, 3, 4, "Quit"))
     if num_meat == "Quit":
         confirm_quit()
-    choice = easygui.buttonbox("Please select one or more meat options:",
-                               "Choose Your Meat",
-                               choices=("Chicken", "Beef", "Salami",
-                                        "Vegan Slice", "View Prices",
-                                        "Quit"))
-    return choice
+    elif num_meat == 1:
+        meat_1 = easygui.buttonbox("Please select your meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+    elif num_meat == 2:
+        meat_1 = easygui.buttonbox("Please select your first meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_2 = easygui.buttonbox("Please select your second meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+    elif num_meat == 3:
+        meat_1 = easygui.buttonbox("Please select your first meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_2 = easygui.buttonbox("Please select your second meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_3 = easygui.buttonbox("Please select your third meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+    else:
+        meat_1 = easygui.buttonbox("Please select your first meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_2 = easygui.buttonbox("Please select your second meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_3 = easygui.buttonbox("Please select your third meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+        meat_4 = easygui.buttonbox("Please select your fourth meat option:",
+                                   "Choose Your Meat",
+                                   choices=("Chicken", "Beef", "Salami",
+                                            "Vegan Slice", "Quit"))
+    meat_choices = [meat_1, meat_2, meat_3, meat_4]
+    return meat_choices
+
 
 
 def select_garnish():
