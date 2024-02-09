@@ -33,7 +33,7 @@
       <recent name="C:\Users\Joshu\OneDrive - Middleton Grange School\Computer Science\Yr13\3.7 &amp; 3.8 Programming\Excercises\Basic-Intro-Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sandwich_maker_v8">
+  <component name="RunManager" selected="Python.sandwich_maker_v9">
     <configuration name="sandwich_maker_v5" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Basic-Intro-Tasks" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -118,7 +118,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="sandwich_maker_v9" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Basic-Intro-Tasks" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -130,7 +130,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sandwich_maker_v9.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -141,11 +141,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.sandwich_maker_v9" />
         <item itemvalue="Python.sandwich_maker_v8" />
         <item itemvalue="Python.sandwich_maker_v7" />
         <item itemvalue="Python.sandwich_maker_v6" />
         <item itemvalue="Python.sandwich_maker_v5" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
