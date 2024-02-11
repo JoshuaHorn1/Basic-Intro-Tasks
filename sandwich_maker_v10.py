@@ -53,26 +53,23 @@ def main_menu():  # a function containing code to call the selection functions
         # gets user input
         if choice == "Select Bread":  # if select bread, run select_bread()
             selected_bread = select_bread()
-            if selected_bread != "xxx":
-                total_price -= round(get_item_price("Bread", bread), 2)
-                bread = selected_bread
-                total_price += round(get_item_price("Bread", selected_bread), 2)
+            total_price -= round(get_item_price("Bread", bread), 2)
+            bread = selected_bread
+            total_price += round(get_item_price("Bread", selected_bread), 2)
         elif choice == "Select Meat":  # if select meat...
             selected_meats = select_meat()
-            if selected_meats != "xxx":
-                total_price -= sum([get_item_price("Meat", meat)
-                                    for meat in meats])
-                meats = selected_meats
-                total_price += sum([get_item_price("Meat", meat)
-                                    for meat in selected_meats])
+            total_price -= sum([get_item_price("Meat", meat)
+                                for meat in meats])
+            meats = selected_meats
+            total_price += sum([get_item_price("Meat", meat)
+                                for meat in selected_meats])
         elif choice == "Select Garnishes":
             selected_garnishes = select_garnish()
-            if selected_garnishes != "xxx":
-                total_price -= sum([get_item_price("Garnish", garnish)
-                                    for garnish in garnishes])
-                garnishes = selected_garnishes
-                total_price += sum([get_item_price("Garnish", garnish)
-                                    for garnish in selected_garnishes])
+            total_price -= sum([get_item_price("Garnish", garnish)
+                                for garnish in garnishes])
+            garnishes = selected_garnishes
+            total_price += sum([get_item_price("Garnish", garnish)
+                                for garnish in selected_garnishes])
         elif choice == "Prices":
             prices()
         elif choice == "Finish":
@@ -91,7 +88,7 @@ def main_menu():  # a function containing code to call the selection functions
                 easygui.msgbox(final_order_summary)
                 quit()
         else:
-            quit()  # quits
+            confirm_quit()  # quits
 
 
 def select_bread():  # function to select bread type
@@ -99,9 +96,9 @@ def select_bread():  # function to select bread type
                                "Choose Your Bread",
                                choices=("Wholemeal", "White",
                                         "Cheesy White",
-                                        "Gluten Free", "Return"))
-    if choice == "Return":  # if user returns, return to main menu
-        return "xxx"
+                                        "Gluten Free", "Quit"))
+    if choice == "Quit":  # if user quits, run confirm_quit()
+        confirm_quit()
     return choice  # returns the users choice if they don't quit
 
 
@@ -112,17 +109,19 @@ def select_meat():  # a function for selecting meat/s
     num_meat = easygui.buttonbox("How many meats do you want in your "
                                  "sandwich?", "Number Of Meats",
                                  choices=list(range(1, max_meats + 1))
-                                         + ["Return"])
-    if num_meat == "Return":  # if user returns, return to main menu
-        return "xxx"
+                                         + ["Quit"])
+    if num_meat == "Quit":  # if the user quits, run confirm_quit()
+        confirm_quit()
+        return
     # gets the meat option for number of meats selected
     for i in range(num_meat):
         meat = easygui.buttonbox(f"Please select your {ordinal_number(i + 1)} "
                                  f"meat option:", "Choose Your Meat",
                                  choices=("Chicken", "Beef", "Salami",
-                                          "Vegan Slice", "Return"))
-        if meat == "Return":  # if user returns, return to main menu
-            return "xxx"
+                                          "Vegan Slice", "Quit"))
+        if meat == "Quit":  # if user quits, run confirm_quit()
+            confirm_quit()
+            return
         meat_choices.append(meat)
     return meat_choices  # returns a list of all user meat choices
 
@@ -135,18 +134,20 @@ def select_garnish():  # a function for selecting garnish/es
                                       "sandwich?",
                                       "Number Of Garnishes",
                                       choices=list(range(1, max_garnishes + 1))
-                                              + ["Return"])
-    if num_garnishes == "Return":  # if user returns, return to main menu
-        return "xxx"
+                                              + ["Quit"])
+    if num_garnishes == "Quit":  # if user quits, run confirm_quit()
+        confirm_quit()
+        return
     # gets the meat option for number of meats selected
     for i in range(num_garnishes):
         garnish = easygui.buttonbox(f"Please select your "
                                     f"{ordinal_number(i + 1)} garnish option:",
                                     "Choose Your Garnish",
                                     choices=("Onion", "Tomato", "Lettuce",
-                                             "Cheese", "Return"))
-        if garnish == "Return":  # if user returns, return to main menu
-            return "xxx"
+                                             "Cheese", "Quit"))
+        if garnish == "Quit":  # if user quits, run confirm_quit()
+            confirm_quit()
+            return
         garnish_choices.append(garnish)
     return garnish_choices  # return a list of all user garnish choices
 
@@ -187,6 +188,17 @@ def get_item_price(category, item):  # a function to retrieve prices
         if item in menu_item:
             return menu_item[item]
     return 0.0  # Return 0 if the item is not found (for error handling)
+
+
+def confirm_quit():  # a function confirming the user wants to quit
+    confirm = easygui.buttonbox("Please confirm that you would like to quit "
+                                "the program.", "Confirm Quit",
+                                choices=("Yes - Quit", "No - Main Menu"))
+    if confirm == "Yes - Quit":
+        exit()
+    else:
+
+        main_menu()
 
 
 # Main...
